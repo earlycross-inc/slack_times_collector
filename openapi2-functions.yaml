@@ -1,0 +1,32 @@
+swagger: '2.0'
+info:
+  title: slack-times-collector
+  description: API for Slack times collector
+  version: 1.0.0
+schemes:
+  - https
+produces:
+  - application/json
+paths:
+  /event:
+    post:
+      summary: event subscription endpoint
+      operationId: event
+      x-google-backend:
+        address: https://asia-northeast1-sixth-tribute-315812.cloudfunctions.net/handle-app-home-open
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: string
+  /interaction:
+    post:
+      summary: interaction event subscription endpoint
+      operationId: interaction
+      x-google-backend:
+        address: https://asia-northeast1-sixth-tribute-315812.cloudfunctions.net/toggle-watch-state
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: string
