@@ -70,7 +70,7 @@ func CollectSlackTimesNews(ctx context.Context, m PubSubMessage) error {
 
 	log.Printf("times stats: %+v", timesStats)
 	sort.Slice(timesStats, func(i, j int) bool {
-		return timesStats[i].postCnt < timesStats[j].postCnt
+		return timesStats[i].postCnt > timesStats[j].postCnt
 	})
 
 	msg := buildTimesNewsMessage(timesStats)
