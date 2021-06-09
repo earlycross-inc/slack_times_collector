@@ -47,7 +47,7 @@ func HandleToggleWatchStateRequest(w http.ResponseWriter, r *http.Request) {
 			newBtn, err = onStopWatching(chProps)
 		default:
 			newBtn = nil
-			err = fmt.Errorf("invalid action id: %s\n", action.ActionID)
+			err = fmt.Errorf("invalid action id: %s", action.ActionID)
 		}
 
 		// エラーが起きた場合はエラーモーダルを表示して終了

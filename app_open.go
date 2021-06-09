@@ -84,7 +84,7 @@ func onAppHomeOpened(ev *slackevents.AppHomeOpenedEvent, botUserID string, times
 	log.Println("app home opened")
 	slackChans, err := getAllConversations()
 	if err != nil {
-		return fmt.Errorf("failed to get channels: %w\n", err)
+		return fmt.Errorf("failed to get channels: %w", err)
 	}
 	timesChans := slackChans.selectTimesChannelsOfUser(ev.User, timesNewsChanID)
 
@@ -92,13 +92,13 @@ func onAppHomeOpened(ev *slackevents.AppHomeOpenedEvent, botUserID string, times
 	for _, c := range timesChans {
 		isWatching, err := checkIfWatchingChannel(&c, botUserID)
 		if err != nil {
-			return fmt.Errorf("failed to fetch channel watching state: %w\n", err)
+			return fmt.Errorf("failed to fetch channel watching state: %w", err)
 		}
 		watchStates = append(watchStates, &channelWatchState{channel: c, isWatching: isWatching})
 	}
 
 	if err := publishAppHomeView(ev.User, watchStates); err != nil {
-		return fmt.Errorf("failed to publish app home view: %w\n", err)
+		return fmt.Errorf("failed to publish app home view: %w", err)
 	}
 	return nil
 }

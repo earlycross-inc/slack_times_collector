@@ -54,13 +54,6 @@ type channelProps struct {
 	Name string
 }
 
-func newChannelProps(chanID string, chanName string) *channelProps {
-	return &channelProps{
-		ID:   chanID,
-		Name: chanName,
-	}
-}
-
 func (cp *channelProps) String() string {
 	return cp.ID + "|" + cp.Name
 }

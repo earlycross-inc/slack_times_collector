@@ -48,7 +48,7 @@ func CollectSlackTimesNews(ctx context.Context, m PubSubMessage) error {
 	for _, ch := range chans.selectTimesChannels(timesNewsChanID) {
 		postCnt, err := getChannelPostCountAfter(ch.ID, hourAgo)
 		if err != nil {
-			if err == NotInChannelError {
+			if err == ErrorNotInChannel {
 				// not in channelエラー -> 未監視のChannelなのでスキップ
 				log.Printf("unwatched channel: #%s(ID: %s)\n", ch.Name, ch.ID)
 				continue
@@ -82,7 +82,7 @@ func CollectSlackTimesNews(ctx context.Context, m PubSubMessage) error {
 }
 
 var (
-	NotInChannelError = errors.New("not in channel")
+	ErrorNotInChannel = errors.New("not in channel")
 )
 
 // 指定Channelの指定時刻以降の投稿数を取得
@@ -100,7 +100,7 @@ func getChannelPostCountAfter(chanID string, t time.Time) (int, error) {
 		})
 		if err != nil {
 			if resp != nil && resp.Error == "not_in_channel" {
-				return 0, NotInChannelError
+				return 0, ErrorNotInChannel
 			}
 			return 0, err
 		}
